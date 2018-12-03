@@ -182,8 +182,8 @@
 			<version>1.4.7</version> 
 		</dependency>
 		
-		
-				<dependency>
+		<!-- Tiles Framework시 필요 라이브러리  -->
+		<dependency>
 			<groupId>org.apache.tiles</groupId>
 			<artifactId>tiles-extras</artifactId>
 			<version>3.0.8</version>
@@ -203,6 +203,19 @@
 			<artifactId>tiles-api</artifactId>
 			<version>3.0.8</version>
 		</dependency>
+		
+		<!-- commons FileUpload -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
+        
 	</dependencies>
     <build>
         <plugins>
