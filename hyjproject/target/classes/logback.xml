@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+    <!-- 아래서 사용할 것에 대해 미리 이름을 정하는 것  -->
+    <property name="LOGS_ABSOLUTE_PATH" value="./logs" />
+ 
+ 	<!--Console Appender -->
+ 	<!-- Console 관련된 설정 이름은 STDOUT으로 정한것  -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- CONSOLE창에 뜨는 패턴  -->
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}][%-5level][%logger{36}] - %msg%n</pattern>
+        </encoder>
+    </appender>
+ 
+ 	<!-- File Appender  -->
+ 	<!-- 파일 관련된 설정 이름은 ROLLING 으로 설정-->
+    <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_ABSOLUTE_PATH}/logback.log</file>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_ABSOLUTE_PATH}/logback.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy                  class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+ 
+ 	<!-- 범위를 name안에 패키지로 넣고 그에 맞는 level정도 넣고 additi는 상속 받는지 유무(root에 관한) -->
+    <logger name="com.hyj.controller"  level="debug" additivity="false">
+        <appender-ref ref="ROLLING" />
+        <appender-ref ref="STDOUT" />
+    </logger>
+ 
+ 	<!-- 위의 범주에 속하지 못한 나머지 부분에 대한 설정  -->
+    <root level="info">
+    	
+    </root>
+ 
+</configuration>
