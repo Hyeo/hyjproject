@@ -40,7 +40,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.hyj.services.HyjService;
+import com.hyj.utill.ExcelDown;
 import com.hyj.utill.HyjCode;
+import com.hyj.utill.PageUtill;
 import com.hyj.vo.HyjVo;
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,6 +53,9 @@ public class HyjController {
 	@Autowired
 	HyjService HyjService;
 		
+	@Autowired
+	PageUtill pageUtill;
+	
 	@RequestMapping("tile")
 	public String tile(){
 		
@@ -302,5 +307,30 @@ public class HyjController {
  
         return url;
     }
+	
+	//HSSF => 97~2003 XSSF => 2007버전 이상	
+	@RequestMapping("excelDown")
+	public @ResponseBody byte[] excelDown(HttpServletResponse response) {
+		ExcelDown excelDown=new ExcelDown();
+		byte[] bytes=excelDown.excelDownload();
+		
+	    //엑셀 이름 정함함
+	    response.setHeader("Content-Disposition", "attachment; filename=Company.xlsx");
+	    //크기
+	    response.setContentLength(bytes.length);
+	    //타입
+	    response.setContentType("application/vnd.ms-excel");
+	    return bytes;
+	}
+	
+	@RequestMapping("readExcel")
+	public String readExcel(@RequestParam (name = "weeklyFile") MultipartFile weeklyFile) {
+		log.info("one");
+		ExcelDown excelDown=new ExcelDown();
+		log.info("two");
+		excelDown.readExcel(weeklyFile);
+		log.info("three");
+		return "home";
+	}
 	
 }
