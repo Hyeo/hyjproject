@@ -5,9 +5,11 @@
 <configuration>
  	<typeAliases>
 		<typeAlias alias="HyjVo" type="com.hyj.vo.HyjVo" />
+		<typeAlias alias="UserDto" type="com.hyj.vo.UserDto" />
 	</typeAliases> 
 
 	<mappers>
 		<mapper resource="mappings/HyjMapper.xml" />
+		<mapper resource="mappings/userMapper.xml" />
 	</mappers>
 </configuration>
